@@ -17,7 +17,7 @@
 }
 
 .container{
-  width: 450px;
+  width: 700px;
   height: 560px;
   background: #212a35;
   border: 2px solid #22282f;
@@ -32,6 +32,6 @@
 .number-pad{
   display: grid;
   grid-gap: 1px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   width: 100%;
 }

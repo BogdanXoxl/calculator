@@ -65,6 +65,58 @@ const App = () => {
     };
 
 
+
+    const trig = type => {
+
+        if(number || storedNumber){
+            const num = parseFloat(number || storedNumber);
+            switch (type){
+                case 'sqrt':
+                    setNumber(`${Math.sqrt(num).toFixed(3)}`);
+                    break;
+                case 'sin':
+                    setNumber(`${Math.sin(num * Math.PI / 180).toFixed(4)}`);
+                    break;
+                case 'cos':
+                    setNumber(`${Math.cos(num * Math.PI / 180).toFixed(4)}`);
+                    break;
+                case 'tan':
+                    setNumber(`${Math.tan(num * Math.PI / 180).toFixed(4)}`);
+                    break;
+                case 'ctn':
+                    setNumber(`${(1/Math.tan(num * Math.PI / 180)).toFixed(4)}`);
+                    break;
+
+
+                case 'asin':
+                    if(num <= 1 && num >= -1)
+                        setNumber(`${(Math.asin(num) / Math.PI * 180).toFixed(3)}`);
+                    else
+                        setNumber('');
+                    break;
+                case 'acos':
+                    if(num <= 1 && num >= -1)
+                        setNumber(`${(Math.acos(num)/ Math.PI * 180).toFixed(3)}`);
+                    else
+                        setNumber('');
+                    break;
+                case 'atan':
+                    setNumber(`${(Math.atan(num)/ Math.PI * 180).toFixed(3)}`);
+                    break;
+
+                    //-
+                case 'actan':
+                    setNumber(`${(90 - Math.atan(parseFloat(number || storedNumber) / Math.PI * 180)).toFixed(3)}`);
+                    break;
+
+                default:
+                    return;
+            }
+
+        }
+    }
+
+
     //Делает число отрицательным - срабатывает при нажатии на кнопку +/-
     const toggleNegative = () => {
         if (number) {
@@ -98,6 +150,9 @@ const App = () => {
                     break;
                 case '*':
                     setStoredNumber(`${Math.round(parseFloat(storedNumber) * parseFloat(number) * 1000) / 1000}`);
+                    break;
+                case '^':
+                    setStoredNumber(`${Math.round(Math.pow(parseFloat(storedNumber), parseFloat(number))* 1000) / 1000}`);
                     break;
                 default:
                     break;
@@ -148,24 +203,40 @@ const App = () => {
         {buttonValue: "%", onClick: moduleCalc, className: "dark-button"},
         {buttonValue: "/", onClick: () => setCalcFunction("/"), className: "function-button"},
 
+        {buttonValue: "√", onClick: () => trig('sqrt'), className: "function-button"},
+        {buttonValue: "atan", onClick: () => trig("atan"), className: "function-button"},
+
         {buttonValue: 7, onClick: () => setDisplayValue(7), className: ""},
         {buttonValue: 8, onClick: () => setDisplayValue(8), className: ""},
         {buttonValue: 9, onClick: () => setDisplayValue(9), className: ""},
         {buttonValue: "*", onClick: () => setCalcFunction("*"), className: "function-button"},
+
+        {buttonValue: "^", onClick: () => setCalcFunction("^"), className: "function-button"},
+        {buttonValue: "actan", onClick: () => trig("actan"), className: "function-button"},
+
 
         {buttonValue: 4, onClick: () => setDisplayValue(4), className: ""},
         {buttonValue: 5, onClick: () => setDisplayValue(5), className: ""},
         {buttonValue: 6, onClick: () => setDisplayValue(6), className: ""},
         {buttonValue: "-", onClick: () => setCalcFunction("-"), className: "function-button"},
 
+        {buttonValue: "sin", onClick: () => trig('sin'), className: "function-button"},
+        {buttonValue: "asin", onClick: () => trig("asin"), className: "function-button"},
+
         {buttonValue: 1, onClick: () => setDisplayValue(1), className: ""},
         {buttonValue: 2, onClick: () => setDisplayValue(2), className: ""},
         {buttonValue: 3, onClick: () => setDisplayValue(3), className: ""},
         {buttonValue: "+", onClick: () => setCalcFunction("+"), className: "function-button"},
 
+        {buttonValue: "cos", onClick: () => trig("cos"), className: "function-button"},
+        {buttonValue: "acos", onClick: () => trig("acos"), className: "function-button"},
+
         {buttonValue: 0, onClick: () => setDisplayValue(0), className: "zero-button"},
         {buttonValue: ".", onClick: () => setDisplayValue("."), className: ""},
         {buttonValue: "=", onClick: doMath, className: "function-button"},
+
+        {buttonValue: "tan", onClick: () => trig("tan"), className: "function-button"},
+        {buttonValue: "ctn", onClick: () => trig("ctn"), className: "function-button"},
     ];
 
 
